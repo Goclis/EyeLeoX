@@ -1,25 +1,22 @@
-<UI version="4.0" >
- <class>EyeLeoXClass</class>
- <widget class="QDialog" name="EyeLeoXClass" >
-  <property name="objectName" >
-   <string notr="true">EyeLeoXClass</string>
-  </property>
-  <property name="geometry" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EyeLeoXSettingClass</class>
+ <widget class="QDialog" name="EyeLeoXSettingClass">
+  <property name="geometry">
    <rect>
-	<x>0</x>
-	<y>0</y>
-	<width>600</width>
-	<height>400</height>
+    <x>0</x>
+    <y>0</y>
+    <width>466</width>
+    <height>327</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>EyeLeoX</string>
   </property>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources>
-   <include location="EyeLeoX.qrc"/>
+  <include location="EyeLeoX.qrc"/>
  </resources>
  <connections/>
-</UI>
+</ui>

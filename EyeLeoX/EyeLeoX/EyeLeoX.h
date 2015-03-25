@@ -7,7 +7,6 @@
 class QSystemTrayIcon;
 class QMenu;
 class QAction;
-class SettingWidget;
 
 
 class EyeLeoX : public QDialog
@@ -26,10 +25,14 @@ public slots:
 	void onPauseActionTriggered();
 
 private:
-	void createActions();
+	void initSettings();
 	void createTrayIcon();
 
-	Ui::EyeLeoXClass ui;
+	// 主界面即设置界面，使用Qt Designer
+	Ui::EyeLeoXSettingClass settingUi;
+
+	// 设置值
+	// ...
 
 	// 系统托盘及其相关的Menu和Action
 	QSystemTrayIcon *m_trayIcon;
@@ -37,9 +40,6 @@ private:
 	QAction *m_settingAction;
 	QAction *m_pauseAction;
 	QAction *m_quitAction;
-
-	// 设置Widget，嵌入主窗口
-	SettingWidget *m_settingWidget;
 };
 
 #endif // EYELEOX_H

@@ -18,30 +18,30 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_EyeLeoXClass
+class Ui_EyeLeoXSettingClass
 {
 public:
 
-    void setupUi(QDialog *EyeLeoXClass)
+    void setupUi(QDialog *EyeLeoXSettingClass)
     {
-        if (EyeLeoXClass->objectName().isEmpty())
-            EyeLeoXClass->setObjectName(QStringLiteral("EyeLeoXClass"));
-        EyeLeoXClass->resize(600, 400);
+        if (EyeLeoXSettingClass->objectName().isEmpty())
+            EyeLeoXSettingClass->setObjectName(QStringLiteral("EyeLeoXSettingClass"));
+        EyeLeoXSettingClass->resize(466, 327);
 
-        retranslateUi(EyeLeoXClass);
+        retranslateUi(EyeLeoXSettingClass);
 
-        QMetaObject::connectSlotsByName(EyeLeoXClass);
+        QMetaObject::connectSlotsByName(EyeLeoXSettingClass);
     } // setupUi
 
-    void retranslateUi(QDialog *EyeLeoXClass)
+    void retranslateUi(QDialog *EyeLeoXSettingClass)
     {
-        EyeLeoXClass->setWindowTitle(QApplication::translate("EyeLeoXClass", "EyeLeoX", 0));
+        EyeLeoXSettingClass->setWindowTitle(QApplication::translate("EyeLeoXSettingClass", "EyeLeoX", 0));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class EyeLeoXClass: public Ui_EyeLeoXClass {};
+    class EyeLeoXSettingClass: public Ui_EyeLeoXSettingClass {};
 } // namespace Ui
 
 QT_END_NAMESPACE
