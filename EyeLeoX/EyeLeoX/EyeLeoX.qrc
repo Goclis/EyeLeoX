@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/EyeLeoX">
-        <file alias="trayIcon">Resources/20150323040138669_easyicon_net_32.ico</file>
+        <file alias="settingIcon">Resources/setting_icon.ico</file>
+        <file alias="infoIcon">Resources/information_icon.ico</file>
+        <file alias="trayIcon">Resources/tray_icon.ico</file>
     </qresource>
 </RCC>

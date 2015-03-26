@@ -7,7 +7,7 @@
 class QSystemTrayIcon;
 class QMenu;
 class QAction;
-
+class QTimer;
 
 class EyeLeoX : public QDialog
 {
@@ -22,17 +22,69 @@ protected:
 	virtual void closeEvent(QCloseEvent *);
 
 public slots:
+	// 处理托盘暂停/恢复监视器
 	void onPauseActionTriggered();
 
+	void onTryShortBreakBtnClicked();
+
+	void onTryLongBreakBtnClicked();
+
+	// 处理设置页面保存设置
+	void onSaveAndCloseBtnClicked();
+
+	// 处理监视定时器超时
+	void onTimeout();
+
 private:
+	// 设置一些初始值以及绑定一些信号/槽
 	void initSettings();
+
+	// 重启整个监视器
+	void restartMonitor();
+
+	// 重置对LongBreak的监视状态
+	void resetLongRestMonitorState();
+
+	// 重置对ShortBreak的监视状态
+	void resetShortRestMonitorState();
+
+	// 重启监视使用的定时器
+	void restartTimer();
+
+	// 创建系统托盘
 	void createTrayIcon();
 
-	// 主界面即设置界面，使用Qt Designer
-	Ui::EyeLeoXSettingClass settingUi;
+	// 获取时间的辅助方法
+	// 从字符串中提取时间转换为秒数，字符串格式为『数字 单位』
+	unsigned long getSecondsFromString(const QString &str) const;
+	unsigned long getCurrentLongBreakInterval() const;
+	unsigned long getCurrentLongBreakDuration() const;
+	unsigned long getCurrentLongBreakNotificationTime() const;
+	unsigned long getCurrentShortBreakInterval() const;
 
-	// 设置值
-	// ...
+private:
+	// 主界面即设置界面，使用Qt Designer
+	Ui::EyeLeoXSettingClass ui;
+
+	// 配置信息
+	// 时间相关的值，以秒为单位
+	unsigned long m_longBreakInterval;
+	unsigned long m_longBreakDuration;
+	unsigned long m_longBreakNotificationTime;
+	unsigned long m_shortBreakInterval;
+	const unsigned long m_shortBreakDuration = 10;
+	// 选项的状态
+	bool m_enableLongBreak;
+	bool m_enableLongBreakNotify;
+	bool m_enableShortBreak;
+	bool m_enableSound;
+	// 当前状态
+	enum
+	{
+		LONG_BREAK,
+		SHORT_BREAK,
+		BUSY
+	} m_currentState;
 
 	// 系统托盘及其相关的Menu和Action
 	QSystemTrayIcon *m_trayIcon;
@@ -40,6 +92,12 @@ private:
 	QAction *m_settingAction;
 	QAction *m_pauseAction;
 	QAction *m_quitAction;
+
+	// 监视状态，使用一个10s的定时器去不断更新这些值
+	unsigned long m_restSecondsToLongBreak;
+	unsigned long m_restSecondsToShortBreak;
+	QTimer *m_regularTimer;
+	const int m_timerInterval = 10; // s
 };
 
 #endif // EYELEOX_H
