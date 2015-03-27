@@ -1,5 +1,6 @@
 #include "EyeLeoX.h"
 #include "ShortBreakWidget.h"
+#include "LongBreakWidget.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QAction>
@@ -21,6 +22,8 @@ EyeLeoX::~EyeLeoX()
 {
 	if (m_shortBreak)
 		delete m_shortBreak;
+	if (m_longBreak)
+		delete m_longBreak;
 }
 
 void EyeLeoX::closeEvent(QCloseEvent *e)
@@ -58,8 +61,13 @@ void EyeLeoX::initSettings()
 
 	// ShortBreakWidget and LongBreakWidget
 	m_shortBreak = new ShortBreakWidget;
+	m_shortBreak->setWindowFlags(Qt::FramelessWindowHint);
 	connect(m_shortBreak, &ShortBreakWidget::breakTimeout, 
 		this, &EyeLeoX::onShortBreakTimeout);
+	m_longBreak = new LongBreakWidget;
+	m_longBreak->setWindowFlags(Qt::FramelessWindowHint);
+	connect(m_longBreak, &LongBreakWidget::breakTimeout,
+		this, &EyeLeoX::onLongBreakTimeout);
 }
 
 void EyeLeoX::restartMonitor()
@@ -128,19 +136,30 @@ void EyeLeoX::onPauseActionTriggered()
 
 void EyeLeoX::onTryShortBreakBtnClicked()
 {
+#if defined(_DEBUG)
 	qDebug() << "Try Short Break clicked";
+#endif
 	m_shortBreak->takeShortBreak(m_shortBreakDuration);
 }
 
 void EyeLeoX::onTryLongBreakBtnClicked()
 {
+#if defined(_DEBUG)
 	qDebug() << "Try Long Break clicked";
+#endif
+	m_currentState = LONG_BREAK;
+#if defined(_DEBUG)
+	m_longBreak->takeLongBreak(1 * 1000);
+#else
+	m_longBreak->takeLongBreak(m_longBreakDuration);
+#endif
 }
 
 void EyeLeoX::onSaveAndCloseBtnClicked()
 {
+#if defined(_DEBUG)
 	qDebug() << "Save and Close clicked";
-
+#endif
 	// Sound enable
 	m_enableSound = ui.soundEnableCkBox->isChecked();
 
@@ -176,7 +195,9 @@ void EyeLeoX::onSaveAndCloseBtnClicked()
 
 void EyeLeoX::onTimeout()
 {
-	qDebug() << "Timeout";
+#if defined(_DEBUG)
+	// qDebug() << "Timeout";
+#endif
 
 	// 检查LongBreak
 	if (m_enableLongBreak) {
@@ -184,18 +205,7 @@ void EyeLeoX::onTimeout()
 		if (0 == m_restSecondsToLongBreak) {
 			// 进入LongBreak状态
 			m_currentState = LONG_BREAK;
-			//@todo
-			// m_longBreakWidget->customShow(m_longBreakDuration);
-			// In customShow, the widget show and set up a timer to count down,
-			// when timeout, emit signal to EyeLeoX main window. Then, in the
-			// slot function, main window call resetLongRestMonitorState() and
-			// restart timer (via restartTimer()).
-
-			//@todo 实现这样的一个行为
-			// setTimeout(m_longBreakDuration, resetLongRestMonitor);
-			// LongBreak结束后需要restartTimer();
-			// resetLongRestMonitorState();
-			// restartTimer();
+			m_longBreak->takeLongBreak(m_longBreakDuration);
 		} else if (m_enableLongBreakNotify 
 			&& (m_restSecondsToLongBreak == m_longBreakNotificationTime))
 		{
@@ -224,7 +234,9 @@ void EyeLeoX::onTimeout()
 
 void EyeLeoX::onShortBreakTimeout()
 {
+#if defined(_DEBUG)
 	qDebug() << "Short break timeout.";
+#endif
 	
 	/**
 	 * 短休息结束后需要重置短休息的监视状态。
@@ -235,6 +247,16 @@ void EyeLeoX::onShortBreakTimeout()
 	if (LONG_BREAK != m_currentState) {
 		restartTimer();
 	}
+}
+
+void EyeLeoX::onLongBreakTimeout()
+{
+#if defined(_DEBUG)
+	qDebug() << "Long break timeout.";
+#endif
+
+	resetLongBreakMonitorState();
+	restartTimer();
 }
 
 unsigned long EyeLeoX::getSecondsFromString(const QString &str) const

@@ -219,26 +219,29 @@ public:
         longBreakCkBox->setText(QApplication::translate("EyeLeoXSettingClass", "Take a long break every", 0));
         longBreakIntervalCbBox->clear();
         longBreakIntervalCbBox->insertItems(0, QStringList()
+         << QApplication::translate("EyeLeoXSettingClass", "30 seconds (test)", 0)
          << QApplication::translate("EyeLeoXSettingClass", "30 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "40 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "50 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "60 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "90 minutes", 0)
         );
-        longBreakIntervalCbBox->setCurrentText(QApplication::translate("EyeLeoXSettingClass", "30 minutes", 0));
+        longBreakIntervalCbBox->setCurrentText(QApplication::translate("EyeLeoXSettingClass", "30 seconds (test)", 0));
         label->setText(QApplication::translate("EyeLeoXSettingClass", "for", 0));
         longBreakDurationCbBox->clear();
         longBreakDurationCbBox->insertItems(0, QStringList()
+         << QApplication::translate("EyeLeoXSettingClass", "20 seconds (test)", 0)
          << QApplication::translate("EyeLeoXSettingClass", "2 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "3 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "4 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "5 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "7 minutes", 0)
         );
-        longBreakDurationCbBox->setCurrentText(QApplication::translate("EyeLeoXSettingClass", "2 minutes", 0));
+        longBreakDurationCbBox->setCurrentText(QApplication::translate("EyeLeoXSettingClass", "20 seconds (test)", 0));
         notifyLongBreakCkBox->setText(QApplication::translate("EyeLeoXSettingClass", "Notify long break coming before", 0));
         notifyLongBreakTimeCbBox->clear();
         notifyLongBreakTimeCbBox->insertItems(0, QStringList()
+         << QApplication::translate("EyeLeoXSettingClass", "5 seconds (test)", 0)
          << QApplication::translate("EyeLeoXSettingClass", "30 seconds", 0)
          << QApplication::translate("EyeLeoXSettingClass", "1 minute", 0)
          << QApplication::translate("EyeLeoXSettingClass", "2 minutes", 0)
@@ -248,6 +251,7 @@ public:
         shortBreakCkBox->setText(QApplication::translate("EyeLeoXSettingClass", "Take a short break every", 0));
         shortBreakIntervalCbBox->clear();
         shortBreakIntervalCbBox->insertItems(0, QStringList()
+         << QApplication::translate("EyeLeoXSettingClass", "10 seconds (test)", 0)
          << QApplication::translate("EyeLeoXSettingClass", "3 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "5 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "8 minutes", 0)

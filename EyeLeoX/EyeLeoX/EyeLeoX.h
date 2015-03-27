@@ -9,6 +9,7 @@ class QMenu;
 class QAction;
 class QTimer;
 class ShortBreakWidget;
+class LongBreakWidget;
 
 class EyeLeoX : public QDialog
 {
@@ -38,6 +39,9 @@ public slots:
 
 	// ShortBreak timeout
 	void onShortBreakTimeout();
+
+	// LongBreak timeout
+	void onLongBreakTimeout();
 
 private:
 	// 设置一些初始值以及绑定一些信号/槽
@@ -72,6 +76,7 @@ private:
 
 	// ShortBreakWidget and LongBreakWidget
 	ShortBreakWidget *m_shortBreak;
+	LongBreakWidget *m_longBreak;
 
 	// 配置信息
 	// 时间相关的值，以秒为单位
@@ -104,7 +109,7 @@ private:
 	unsigned long m_restSecondsToLongBreak;
 	unsigned long m_restSecondsToShortBreak;
 	QTimer *m_regularTimer;
-	const int m_timerInterval = 1; // s
+	const unsigned int m_timerInterval = 1; // s
 };
 
 #endif // EYELEOX_H

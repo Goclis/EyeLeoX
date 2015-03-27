@@ -17,7 +17,7 @@ public:
 	/**
 	 * @brief 进入ShortBreak，执行完毕后会发送breakTimeout信号
 	 *
-	 * @param duration 休息的时间
+	 * @param duration 休息的时间，单位为秒
 	 */
 	void takeShortBreak(unsigned long duration);
 
