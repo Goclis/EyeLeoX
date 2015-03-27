@@ -6,6 +6,8 @@ ShortBreakWidget::ShortBreakWidget(QWidget *parent)
 {
 	ui.setupUi(this);
 
+	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+
 	m_countingDownTimer = new QTimer(this);
 	m_countingDownTimer->setInterval(1 * 1000);
 	connect(m_countingDownTimer, &QTimer::timeout, this, &ShortBreakWidget::onTimeout);

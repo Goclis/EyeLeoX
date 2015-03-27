@@ -6,6 +6,8 @@ LongBreakWidget::LongBreakWidget(QWidget *parent)
 {
 	ui.setupUi(this);
 
+	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+
 	m_minuteTimer = new QTimer(this);
 	m_minuteTimer->setInterval(60 * 1000);
 	connect(m_minuteTimer, &QTimer::timeout, this, &LongBreakWidget::onTimeout);

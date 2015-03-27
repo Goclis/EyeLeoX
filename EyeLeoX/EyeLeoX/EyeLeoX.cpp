@@ -61,11 +61,9 @@ void EyeLeoX::initSettings()
 
 	// ShortBreakWidget and LongBreakWidget
 	m_shortBreak = new ShortBreakWidget;
-	m_shortBreak->setWindowFlags(Qt::FramelessWindowHint);
 	connect(m_shortBreak, &ShortBreakWidget::breakTimeout, 
 		this, &EyeLeoX::onShortBreakTimeout);
 	m_longBreak = new LongBreakWidget;
-	m_longBreak->setWindowFlags(Qt::FramelessWindowHint);
 	connect(m_longBreak, &LongBreakWidget::breakTimeout,
 		this, &EyeLeoX::onLongBreakTimeout);
 }
@@ -149,7 +147,7 @@ void EyeLeoX::onTryLongBreakBtnClicked()
 #endif
 	m_currentState = LONG_BREAK;
 #if defined(_DEBUG)
-	m_longBreak->takeLongBreak(1 * 1000);
+	m_longBreak->takeLongBreak(10 * 60);
 #else
 	m_longBreak->takeLongBreak(m_longBreakDuration);
 #endif
