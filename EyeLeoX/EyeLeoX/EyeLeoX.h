@@ -8,6 +8,7 @@ class QSystemTrayIcon;
 class QMenu;
 class QAction;
 class QTimer;
+class ShortBreakWidget;
 
 class EyeLeoX : public QDialog
 {
@@ -35,6 +36,9 @@ public slots:
 	// 处理监视定时器超时
 	void onTimeout();
 
+	// ShortBreak timeout
+	void onShortBreakTimeout();
+
 private:
 	// 设置一些初始值以及绑定一些信号/槽
 	void initSettings();
@@ -43,10 +47,10 @@ private:
 	void restartMonitor();
 
 	// 重置对LongBreak的监视状态
-	void resetLongRestMonitorState();
+	void resetLongBreakMonitorState();
 
 	// 重置对ShortBreak的监视状态
-	void resetShortRestMonitorState();
+	void resetShortBreakMonitorState();
 
 	// 重启监视使用的定时器
 	void restartTimer();
@@ -65,6 +69,9 @@ private:
 private:
 	// 主界面即设置界面，使用Qt Designer
 	Ui::EyeLeoXSettingClass ui;
+
+	// ShortBreakWidget and LongBreakWidget
+	ShortBreakWidget *m_shortBreak;
 
 	// 配置信息
 	// 时间相关的值，以秒为单位
@@ -93,11 +100,11 @@ private:
 	QAction *m_pauseAction;
 	QAction *m_quitAction;
 
-	// 监视状态，使用一个10s的定时器去不断更新这些值
+	// 监视状态，使用一个1s的定时器去不断更新这些值
 	unsigned long m_restSecondsToLongBreak;
 	unsigned long m_restSecondsToShortBreak;
 	QTimer *m_regularTimer;
-	const int m_timerInterval = 10; // s
+	const int m_timerInterval = 1; // s
 };
 
 #endif // EYELEOX_H

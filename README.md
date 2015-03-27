@@ -19,6 +19,7 @@ __信息图标__
 ![信息](http://www.easyicon.net/api/resize_png_new.php?id=1182645&size=32)
 
 ## Todo
-1. 实现ShortBreakWidget。
-2. 实现LongBreakWidget。
-3. 完成EyeLeo::onTimeout。
+1. 实现LongBreakWidget。
+2. 完成EyeLeo::onTimeout。
+3. 声音（Enable Sound）。
+4. Information补充。

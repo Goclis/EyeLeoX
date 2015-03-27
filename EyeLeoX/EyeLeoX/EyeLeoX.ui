@@ -121,7 +121,7 @@
          <item>
           <widget class="QComboBox" name="longBreakIntervalCbBox">
            <property name="currentText">
-            <string>60 minutes</string>
+            <string>30 minutes</string>
            </property>
            <item>
             <property name="text">
@@ -160,7 +160,7 @@
          <item>
           <widget class="QComboBox" name="longBreakDurationCbBox">
            <property name="currentText">
-            <string>5 minutes</string>
+            <string>2 minutes</string>
            </property>
            <item>
             <property name="text">
@@ -264,7 +264,7 @@
          <item>
           <widget class="QComboBox" name="shortBreakIntervalCbBox">
            <property name="currentIndex">
-            <number>3</number>
+            <number>0</number>
            </property>
            <item>
             <property name="text">

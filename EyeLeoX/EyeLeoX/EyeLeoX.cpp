@@ -1,4 +1,5 @@
 #include "EyeLeoX.h"
+#include "ShortBreakWidget.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QAction>
@@ -18,7 +19,8 @@ EyeLeoX::EyeLeoX(QWidget *parent)
 
 EyeLeoX::~EyeLeoX()
 {
-
+	if (m_shortBreak)
+		delete m_shortBreak;
 }
 
 void EyeLeoX::closeEvent(QCloseEvent *e)
@@ -50,23 +52,29 @@ void EyeLeoX::initSettings()
 
 	// 监视器相关设置
 	m_regularTimer = new QTimer(this);
+	m_regularTimer->setSingleShot(true);
 	m_regularTimer->setInterval(m_timerInterval * 1000);
 	connect(m_regularTimer, &QTimer::timeout, this, &EyeLeoX::onTimeout);
+
+	// ShortBreakWidget and LongBreakWidget
+	m_shortBreak = new ShortBreakWidget;
+	connect(m_shortBreak, &ShortBreakWidget::breakTimeout, 
+		this, &EyeLeoX::onShortBreakTimeout);
 }
 
 void EyeLeoX::restartMonitor()
 {
-	resetLongRestMonitorState();
-	resetShortRestMonitorState();
+	resetLongBreakMonitorState();
+	resetShortBreakMonitorState();
 	restartTimer();
 }
 
-void EyeLeoX::resetLongRestMonitorState()
+void EyeLeoX::resetLongBreakMonitorState()
 {
 	m_restSecondsToLongBreak = m_longBreakInterval;
 }
 
-void EyeLeoX::resetShortRestMonitorState()
+void EyeLeoX::resetShortBreakMonitorState()
 {
 	m_restSecondsToShortBreak = m_shortBreakInterval;
 }
@@ -121,6 +129,7 @@ void EyeLeoX::onPauseActionTriggered()
 void EyeLeoX::onTryShortBreakBtnClicked()
 {
 	qDebug() << "Try Short Break clicked";
+	m_shortBreak->takeShortBreak(m_shortBreakDuration);
 }
 
 void EyeLeoX::onTryLongBreakBtnClicked()
@@ -161,6 +170,8 @@ void EyeLeoX::onSaveAndCloseBtnClicked()
 	} else {
 		m_regularTimer->start();
 	}
+
+	hide();
 }
 
 void EyeLeoX::onTimeout()
@@ -189,7 +200,7 @@ void EyeLeoX::onTimeout()
 			&& (m_restSecondsToLongBreak == m_longBreakNotificationTime))
 		{
 			// 通知用户即将进入LongBreak状态
-			//@todo
+			m_trayIcon->showMessage("Notification", "Long break is coming soon");
 		}
 	}
 
@@ -197,23 +208,33 @@ void EyeLeoX::onTimeout()
 	if (m_enableShortBreak) {
 		m_restSecondsToShortBreak -= m_timerInterval;
 		if (0 == m_restSecondsToShortBreak) {
-			if (LONG_BREAK == m_currentState) {
-				resetShortRestMonitorState();
-			} else {
+			if (m_currentState != LONG_BREAK) {
 				// 进入ShortBreak状态
 				m_currentState = SHORT_BREAK;
-				//@todo
-
-				//@todo 实现这样的一个行为
-				// setTimeout(m_shortBreakDuration, resetShortRestMonitor);
-				// ShortBreak结束后需要检查当前是否处于LONG_REST，是的话不管，不是的话需要
-				// restartTimer()
+				m_shortBreak->takeShortBreak(m_shortBreakDuration);
 			}
 		}
 	}
 	
+	// 处于任意的休息状态都会停止监视定时器，需要在休息结束后恢复
+	// （因此，短休息实际上会延后长休息的时间）
 	if (BUSY == m_currentState)
 		m_regularTimer->start();
+}
+
+void EyeLeoX::onShortBreakTimeout()
+{
+	qDebug() << "Short break timeout.";
+	
+	/**
+	 * 短休息结束后需要重置短休息的监视状态。
+	 * 短休息结束时有可能正处于长休息状态，如果处于长休息状态，将重启定时器的任务推迟到
+	 * 长休息结束后。
+	 */
+	resetShortBreakMonitorState();
+	if (LONG_BREAK != m_currentState) {
+		restartTimer();
+	}
 }
 
 unsigned long EyeLeoX::getSecondsFromString(const QString &str) const

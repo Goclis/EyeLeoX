@@ -206,7 +206,7 @@ public:
         retranslateUi(EyeLeoXSettingClass);
 
         tabWidget->setCurrentIndex(0);
-        shortBreakIntervalCbBox->setCurrentIndex(3);
+        shortBreakIntervalCbBox->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(EyeLeoXSettingClass);
@@ -225,7 +225,7 @@ public:
          << QApplication::translate("EyeLeoXSettingClass", "60 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "90 minutes", 0)
         );
-        longBreakIntervalCbBox->setCurrentText(QApplication::translate("EyeLeoXSettingClass", "60 minutes", 0));
+        longBreakIntervalCbBox->setCurrentText(QApplication::translate("EyeLeoXSettingClass", "30 minutes", 0));
         label->setText(QApplication::translate("EyeLeoXSettingClass", "for", 0));
         longBreakDurationCbBox->clear();
         longBreakDurationCbBox->insertItems(0, QStringList()
@@ -235,7 +235,7 @@ public:
          << QApplication::translate("EyeLeoXSettingClass", "5 minutes", 0)
          << QApplication::translate("EyeLeoXSettingClass", "7 minutes", 0)
         );
-        longBreakDurationCbBox->setCurrentText(QApplication::translate("EyeLeoXSettingClass", "5 minutes", 0));
+        longBreakDurationCbBox->setCurrentText(QApplication::translate("EyeLeoXSettingClass", "2 minutes", 0));
         notifyLongBreakCkBox->setText(QApplication::translate("EyeLeoXSettingClass", "Notify long break coming before", 0));
         notifyLongBreakTimeCbBox->clear();
         notifyLongBreakTimeCbBox->insertItems(0, QStringList()
