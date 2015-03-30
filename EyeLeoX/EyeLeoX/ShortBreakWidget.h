@@ -30,6 +30,8 @@ private:
 	Ui::ShortBreakWidget ui;
 	QTimer *m_countingDownTimer;
 	unsigned long m_countNumber;
+
+	QString m_formatString;
 };
 
 #endif // SHORTRESTWIDGET_H

@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>537</width>
+    <height>188</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Take a short break</string>
+  </property>
+  <property name="windowOpacity">
+   <double>0.500000000000000</double>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -19,8 +22,16 @@
      <property name="font">
       <font>
        <family>微软雅黑</family>
-       <pointsize>48</pointsize>
+       <pointsize>40</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(43, 43, 43);
+border-radius:10px;
+border:1px solid rgb(43,43,43);
+color:white;
+padding-left:15px;
+padding-right:15px;</string>
      </property>
      <property name="text">
       <string>10</string>

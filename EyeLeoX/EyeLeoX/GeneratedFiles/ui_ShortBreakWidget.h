@@ -30,15 +30,22 @@ public:
     {
         if (ShortBreakWidget->objectName().isEmpty())
             ShortBreakWidget->setObjectName(QStringLiteral("ShortBreakWidget"));
-        ShortBreakWidget->resize(400, 300);
+        ShortBreakWidget->resize(537, 188);
+        ShortBreakWidget->setWindowOpacity(0.5);
         horizontalLayout = new QHBoxLayout(ShortBreakWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         countNumberLabel = new QLabel(ShortBreakWidget);
         countNumberLabel->setObjectName(QStringLiteral("countNumberLabel"));
         QFont font;
         font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
-        font.setPointSize(48);
+        font.setPointSize(40);
         countNumberLabel->setFont(font);
+        countNumberLabel->setStyleSheet(QLatin1String("background-color: rgb(43, 43, 43);\n"
+"border-radius:10px;\n"
+"border:1px solid rgb(43,43,43);\n"
+"color:white;\n"
+"padding-left:15px;\n"
+"padding-right:15px;"));
         countNumberLabel->setAlignment(Qt::AlignCenter);
 
         horizontalLayout->addWidget(countNumberLabel);
