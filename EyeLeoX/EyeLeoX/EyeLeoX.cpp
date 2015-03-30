@@ -1,7 +1,6 @@
 #include "EyeLeoX.h"
 #include "ShortBreakWidget.h"
 #include "LongBreakWidget.h"
-#include <QSystemTrayIcon>
 #include <QMenu>
 #include <QAction>
 #include <QCloseEvent>
@@ -99,7 +98,8 @@ void EyeLeoX::createTrayIcon()
 	m_settingAction = new QAction("EyeLeoX Settings", this);
 	connect(m_settingAction, &QAction::triggered, this, &EyeLeoX::show);
 	m_pauseAction = new QAction("Pause monitoring", this);
-	connect(m_pauseAction, &QAction::triggered, this, &EyeLeoX::onPauseActionTriggered);
+	connect(m_pauseAction, &QAction::triggered, 
+		this, &EyeLeoX::onPauseActionTriggered);
 	m_quitAction = new QAction("Quit", this);
 	connect(m_quitAction, &QAction::triggered, qApp, &QApplication::quit);
 	
@@ -112,6 +112,8 @@ void EyeLeoX::createTrayIcon()
 	
 	// TrayIcon
 	m_trayIcon = new QSystemTrayIcon(QIcon(":/EyeLeoX/trayIcon"), this);
+	connect(m_trayIcon, &QSystemTrayIcon::activated, 
+		this, &EyeLeoX::onTrayIconActivated);
 	m_trayIcon->setContextMenu(m_trayIconMenu);
 	m_trayIcon->show();
 }
@@ -255,6 +257,18 @@ void EyeLeoX::onLongBreakTimeout()
 
 	resetLongBreakMonitorState();
 	restartTimer();
+}
+
+void EyeLeoX::onTrayIconActivated(QSystemTrayIcon::ActivationReason reason)
+{
+	switch (reason)
+	{
+	case QSystemTrayIcon::DoubleClick:
+		this->show();
+		break;
+	default:
+		break;
+	}
 }
 
 unsigned long EyeLeoX::getSecondsFromString(const QString &str) const

@@ -2,9 +2,10 @@
 #define EYELEOX_H
 
 #include <QtWidgets/QDialog>
+#include <QSystemTrayIcon>
 #include "ui_EyeLeoX.h"
 
-class QSystemTrayIcon;
+
 class QMenu;
 class QAction;
 class QTimer;
@@ -42,6 +43,9 @@ public slots:
 
 	// LongBreak timeout
 	void onLongBreakTimeout();
+
+	// 处理双击系统托盘
+	void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
 
 private:
 	// 设置一些初始值以及绑定一些信号/槽
