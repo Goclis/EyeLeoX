@@ -5,14 +5,13 @@ LongBreakWidget::LongBreakWidget(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-
 	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
 	m_minuteTimer = new QTimer(this);
 	m_minuteTimer->setInterval(60 * 1000);
 	connect(m_minuteTimer, &QTimer::timeout, this, &LongBreakWidget::onTimeout);
 
-	m_formatString = "Take a long break now!! %1 minutes left...";
+	m_formatString = "Take a long break now!! %1 minutes left... (Double click to skip)";
 }
 
 LongBreakWidget::~LongBreakWidget()
@@ -34,6 +33,12 @@ void LongBreakWidget::takeLongBreak(unsigned long duration)
 #endif
 	
 	m_minuteTimer->start();
+}
+
+void LongBreakWidget::mouseDoubleClickEvent(QMouseEvent *e)
+{
+	m_minuteTimer->stop();
+	hide();
 }
 
 void LongBreakWidget::onTimeout()

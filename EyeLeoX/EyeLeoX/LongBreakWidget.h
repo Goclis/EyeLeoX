@@ -24,6 +24,9 @@ public:
 signals:
 	void breakTimeout();
 
+protected:
+	virtual void mouseDoubleClickEvent(QMouseEvent *);
+
 private:
 	void onTimeout();
 

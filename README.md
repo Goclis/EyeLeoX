@@ -19,7 +19,7 @@ __信息图标__
 ![信息](http://www.easyicon.net/api/resize_png_new.php?id=1182645&size=32)
 
 ## Todo
-- 改进LongBreak的界面，增加相关提示文字、图片。
+- 配置文件的保存。
 - 移除掉`EyeLeoX.ui`中用于测试的一些选项。
 - 声音（Enable Sound）。
 - Information补充。
@@ -27,3 +27,4 @@ __信息图标__
 
 ## More
 - ShortBreak的UI可以继续改进。
+- LongBreak的UI可以继续改进，将Skip改为Button的形式（不知道怎么弄布局。。）。

@@ -16,7 +16,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,34 +24,26 @@ class Ui_LongBreakWidget
 {
 public:
     QHBoxLayout *horizontalLayout;
-    QVBoxLayout *verticalLayout;
     QLabel *label;
 
     void setupUi(QWidget *LongBreakWidget)
     {
         if (LongBreakWidget->objectName().isEmpty())
             LongBreakWidget->setObjectName(QStringLiteral("LongBreakWidget"));
-        LongBreakWidget->resize(400, 300);
-        LongBreakWidget->setWindowOpacity(0.5);
+        LongBreakWidget->resize(847, 662);
+        LongBreakWidget->setWindowOpacity(0.8);
+        LongBreakWidget->setStyleSheet(QStringLiteral("background-color:rgb(25,25,25);"));
         horizontalLayout = new QHBoxLayout(LongBreakWidget);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(6);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         label = new QLabel(LongBreakWidget);
         label->setObjectName(QStringLiteral("label"));
         QFont font;
-        font.setFamily(QStringLiteral("Arial"));
-        font.setPointSize(12);
+        font.setPointSize(20);
         label->setFont(font);
+        label->setStyleSheet(QStringLiteral("color:white;"));
         label->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(label);
-
-
-        horizontalLayout->addLayout(verticalLayout);
+        horizontalLayout->addWidget(label);
 
 
         retranslateUi(LongBreakWidget);
@@ -63,7 +54,7 @@ public:
     void retranslateUi(QWidget *LongBreakWidget)
     {
         LongBreakWidget->setWindowTitle(QApplication::translate("LongBreakWidget", "LongBreakWidget", 0));
-        label->setText(QApplication::translate("LongBreakWidget", "Take a long break now!! 5 minutes left...", 0));
+        label->setText(QApplication::translate("LongBreakWidget", "TextLabel", 0));
     } // retranslateUi
 
 };
